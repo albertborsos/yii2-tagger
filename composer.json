@@ -10,6 +10,9 @@
 			"email": "hello@borsosalbert.hu"
 		}
 	],
+    "require": {
+        "albertborsos/yii2-lib": "dev-master"
+    },
 	"autoload": {
 		"psr-4": {
 			"albertborsos\\yii2tagger\\": ""
