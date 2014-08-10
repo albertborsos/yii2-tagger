@@ -16,7 +16,7 @@ use Yii;
  * @property integer $created_user
  * @property integer $updated_at
  * @property integer $updated_user
- * @property integer $status
+ * @property string $status
  *
  * @property Tags $tag
  */
@@ -41,8 +41,9 @@ class Assigns extends ActiveRecord
     {
         return [
             [['tag_id', 'model_id'], 'required'],
-            [['tag_id', 'model_id', 'created_at', 'created_user', 'updated_at', 'updated_user', 'status'], 'integer'],
-            [['model_class'], 'string', 'max' => 160]
+            [['tag_id', 'model_id', 'created_at', 'created_user', 'updated_at', 'updated_user'], 'integer'],
+            [['model_class'], 'string', 'max' => 160],
+            [['status'], 'string', 'max' => 1]
         ];
     }
 
