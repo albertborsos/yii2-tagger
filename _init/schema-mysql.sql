@@ -8,7 +8,7 @@ CREATE TABLE `ext_tagger_assigns` (
   `created_user` int(11) DEFAULT NULL COMMENT 'Létrehozta',
   `updated_at` int(11) DEFAULT NULL COMMENT 'Módosítva',
   `updated_user` int(11) DEFAULT NULL COMMENT 'Módosította',
-  `status` int(11) DEFAULT NULL COMMENT 'Státusz',
+  `status` varchar(1) DEFAULT NULL COMMENT 'Státusz',
   PRIMARY KEY (`id`),
   KEY `tag_id` (`tag_id`),
   CONSTRAINT `ext_tagger_assigns_ibfk_1` FOREIGN KEY (`tag_id`) REFERENCES `ext_tagger_tags` (`id`)
