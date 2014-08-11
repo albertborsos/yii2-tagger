@@ -3,11 +3,13 @@
     namespace albertborsos\yii2tagger\models;
 
     use albertborsos\yii2lib\db\ActiveRecord;
+    use albertborsos\yii2lib\helpers\Glyph;
     use albertborsos\yii2lib\helpers\S;
     use albertborsos\yii2lib\helpers\Widgets;
     use albertborsos\yii2lib\wrappers\Select2;
     use Yii;
     use yii\helpers\ArrayHelper;
+    use yii\helpers\Html;
 
     /**
      * This is the model class for table "ext_tagger_tags".
@@ -208,21 +210,26 @@
                     'model_id' => $model->getPrimaryKey(),
                 ]);
             }
+            $values = [];
+            foreach($assigns as $assign){
+                $values[] = $assign->tag->label;
+            }
             switch($returnType){
                 case 'object':
                     return $assigns;
                     break;
                 case 'array':
+                    return $values;
+                    break;
                 case 'string':
-                    $values = [];
-                    foreach($assigns as $assign){
-                        $values[] = $assign->tag->label;
+                    return implode(',', $values);
+                    break;
+                case 'link':
+                    $tags = Glyph::icon(Glyph::ICON_TAGS);
+                    foreach($values as $value){
+                        $tags .= ' '.Html::tag('span', $value, ['class' => 'label label-info']);
                     }
-                    if ($returnType == 'array'){
-                        return $values;
-                    }else{
-                        return implode(',', $values);
-                    }
+                    return $tags;
                     break;
             }
         }
