@@ -102,9 +102,13 @@
             }
         }
 
-        public static function Widget($id = 'tagger', $values)
+        public static function Widget($id = 'tagger', $values, $byUser = false)
         {
-            $sourceArray = self::getActiveTagsForSource();
+            if ($byUser){
+                $sourceArray   = self::getActiveTagsForSourceCreatedByUser();
+            }else{
+                $sourceArray   = self::getActiveTagsForSource();
+            }
             $htmlOptions = [];
             $pluginOptions = Widgets::select2TagPluginOptions($sourceArray);
 
@@ -116,12 +120,16 @@
             return $widget;
         }
 
-        public static function activeWidget(\yii\base\Model $model, $name = 'tagger', $values)
+        public static function activeWidget(\yii\base\Model $model, $name = 'tagger', $values, $byUser = false)
         {
             $id   = Html::getInputId($model, $name);
             $name = Html::getInputName($model, $name);
 
-            $sourceArray   = self::getActiveTagsForSource();
+            if ($byUser){
+                $sourceArray = self::getActiveTagsForSourceCreatedByUser();
+            }else{
+                $sourceArray   = self::getActiveTagsForSource();
+            }
             $htmlOptions   = ['id' => $id];
             $pluginOptions = Widgets::select2TagPluginOptions($sourceArray);
 
@@ -133,11 +141,24 @@
             return $widget;
         }
 
-        public static function getActiveTagsForSource($modelClass = null){
-            if (is_null($modelClass)){
+        public static function getActiveTagsForSource($model = null){
+            if (is_null($model)){
                 $tags = self::findAll(['status' => 'a']);
             }else{
-                $tags = self::findAll(['model_class' => $modelClass, 'status' => 'a']);
+                $tags = self::findAll(['model_class' => get_class($model), 'status' => 'a']);
+            }
+            $source = [];
+            foreach($tags as $tag){
+                $source[] = $tag->label;
+            }
+            return $source;
+        }
+
+        public static function getActiveTagsForSourceCreatedByUser($model = null){
+            if (is_null($model)){
+                $tags = self::findAll(['status' => 'a', 'created_user' => Yii::$app->getUser()->getId()]);
+            }else{
+                $tags = self::findAll(['model_class' => get_class($model), 'status' => 'a', 'created_user' => Yii::$app->getUser()->getId()]);
             }
             $source = [];
             foreach($tags as $tag){
