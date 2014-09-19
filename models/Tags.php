@@ -212,9 +212,11 @@
         /**
          * @param ActiveRecord $model
          * @param bool $activeOnly
-         * @param string $returnType - object, array, string
+         * @param string $returnType - object, array, string, link, label
+         * @param string $labelType - danger, info, success, warning
+         * @return array|string|static[]
          */
-        public static function getAssignedTags(ActiveRecord $model, $activeOnly = true, $returnType = 'object'){
+        public static function getAssignedTags(ActiveRecord $model, $activeOnly = true, $returnType = 'object', $labelType= 'info'){
             if ($activeOnly){
                 $assigns = Assigns::findAll([
                     'model_class' => get_class($model),
@@ -244,7 +246,15 @@
                 case 'link':
                     $tags = Glyph::icon(Glyph::ICON_TAGS);
                     foreach($values as $value){
-                        $tags .= ' '.Html::tag('span', $value, ['class' => 'label label-info']);
+                        $tags .= ' '.Html::tag('span', $value, ['class' => 'label label-'.$labelType]);
+                    }
+                    return $tags;
+                    break;
+                case 'label':
+                    $icon = Glyph::icon(Glyph::ICON_TAGS);
+                    $tags = '';
+                    foreach($values as $value){
+                        $tags .= ' '.Html::tag('span', $icon.' '.$value, ['class' => 'label label-'.$labelType]);
                     }
                     return $tags;
                     break;
