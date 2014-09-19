@@ -116,6 +116,23 @@
             return $widget;
         }
 
+        public static function activeWidget(\yii\base\Model $model, $name = 'tagger', $values)
+        {
+            $id   = Html::getInputId($model, $name);
+            $name = Html::getInputName($model, $name);
+
+            $sourceArray   = self::getActiveTagsForSource();
+            $htmlOptions   = ['id' => $id];
+            $pluginOptions = Widgets::select2TagPluginOptions($sourceArray);
+
+            $widget = '<div class="form-group field-'.$id.'">';
+            $widget .= '<label class="control-label" for="' . $id . '">Cimkék</label>';
+            $widget .= Select2::baseWidget($name, $values, $sourceArray, $htmlOptions, $pluginOptions);
+            $widget .= '</div>';
+
+            return $widget;
+        }
+
         public static function getActiveTagsForSource($modelClass = null){
             if (is_null($modelClass)){
                 $tags = self::findAll(['status' => 'a']);
