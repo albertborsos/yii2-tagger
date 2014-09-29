@@ -142,27 +142,49 @@
         }
 
         public static function getActiveTagsForSource($model = null){
+            $sql = 'SELECT DISTINCT t.label FROM '.Tags::tableName().' t' .
+                ' JOIN '.Assigns::tableName().' a' .
+                ' ON t.id=a.tag_id' .
+                ' WHERE a.status=:status_a';
             if (is_null($model)){
-                $tags = self::findAll(['status' => 'a']);
+                $query = Yii::$app->db->createCommand($sql, [
+                    ':status_a' => Assigns::STATUS_ACTIVE,
+                ]);
             }else{
-                $tags = self::findAll(['model_class' => get_class($model), 'status' => 'a']);
+                $sql .= ' AND model_class=:model_class';
+                $query = Yii::$app->db->createCommand($sql, [
+                    ':status_a' => Assigns::STATUS_ACTIVE,
+                    ':model_class' => get_class($model),
+                ]);
             }
+            $tags = $query->queryAll();
             $source = [];
             foreach($tags as $tag){
-                $source[] = $tag->label;
+                $source[] = $tag['label'];
             }
             return $source;
         }
 
         public static function getActiveTagsForSourceCreatedByUser($model = null){
+            $sql = 'SELECT DISTINCT t.label FROM '.Tags::tableName().' t' .
+                ' JOIN '.Assigns::tableName().' a' .
+                ' ON t.id=a.tag_id' .
+                ' WHERE a.created_user=:created_user';
             if (is_null($model)){
-                $tags = self::findAll(['status' => 'a', 'created_user' => Yii::$app->getUser()->getId()]);
+                $query = Yii::$app->db->createCommand($sql, [
+                    ':created_user' => Yii::$app->getUser()->getId(),
+                ]);
             }else{
-                $tags = self::findAll(['model_class' => get_class($model), 'status' => 'a', 'created_user' => Yii::$app->getUser()->getId()]);
+                $sql .= ' AND model_class=:model_class';
+                $query = Yii::$app->db->createCommand($sql, [
+                    ':created_user' => Yii::$app->getUser()->getId(),
+                    ':model_class' => get_class($model),
+                ]);
             }
+            $tags = $query->queryAll();
             $source = [];
             foreach($tags as $tag){
-                $source[] = $tag->label;
+                $source[] = $tag['label'];
             }
             return $source;
         }
