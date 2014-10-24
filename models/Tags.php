@@ -274,7 +274,7 @@
             }
             $values = [];
             foreach($assigns as $assign){
-                $values[] = $assign->tag->label;
+                $values[$assign->tag_id] = $assign->tag->label;
             }
             switch($returnType){
                 case 'object':
