@@ -255,7 +255,7 @@
         /**
          * @param ActiveRecord $model
          * @param bool $activeOnly
-         * @param string $returnType - object, array, string, link, label
+         * @param string $returnType - object, array, string, link, label, dropdownlist
          * @param string $labelType - danger, info, success, warning
          * @return array|string|static[]
          */
@@ -281,6 +281,9 @@
                     return $assigns;
                     break;
                 case 'array':
+                    return $values = array_values($values);
+                    break;
+                case 'dropdownlist':
                     return $values;
                     break;
                 case 'string':
