@@ -11,7 +11,7 @@
 		}
 	],
     "require": {
-        "albertborsos/yii2-lib": "1.0.*"
+        "albertborsos/yii2-lib": "*"
     },
 	"autoload": {
 		"psr-4": {
