@@ -290,9 +290,12 @@
                     return implode(',', $values);
                     break;
                 case 'link':
-                    $tags = Glyph::icon(Glyph::ICON_TAGS);
-                    foreach($values as $value){
-                        $tags .= ' '.Html::tag('span', $value, ['class' => 'label label-'.$labelType]);
+                    $tags = null;
+                    if(count($values) > 0){
+                        $tags = Glyph::icon(Glyph::ICON_TAGS);
+                        foreach($values as $value){
+                            $tags .= ' '.Html::tag('span', $value, ['class' => 'label label-'.$labelType]);
+                        }
                     }
                     return $tags;
                     break;
