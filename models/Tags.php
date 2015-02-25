@@ -43,6 +43,9 @@
         public function rules()
         {
             return [
+                [['label', 'status'], 'trim'],
+                [['label', 'status'], 'default'],
+                [['label', 'status'], 'required'],
                 [['created_at', 'created_user', 'updated_at', 'updated_user'], 'integer'],
                 [['label'], 'string', 'max' => 160],
                 [['status'], 'string', 'max' => 1]

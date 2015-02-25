@@ -40,6 +40,8 @@ class Assigns extends ActiveRecord
     public function rules()
     {
         return [
+            [['tag_id', 'model_id'], 'trim'],
+            [['tag_id', 'model_id'], 'default'],
             [['tag_id', 'model_id'], 'required'],
             [['tag_id', 'model_id', 'created_at', 'created_user', 'updated_at', 'updated_user'], 'integer'],
             [['model_class'], 'string', 'max' => 160],
