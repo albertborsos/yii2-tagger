@@ -322,12 +322,14 @@
                     $tagsWithIDs[$foundTag->id] = $label;
                 }else{
                     //még nincs ilyen cimke -> mentjük
-                    $tag = new Tags();
-                    $tag->label = $label;
-                    $tag->status = 'a';
-                    $tag->save();
-                    // már van ID-nk
-                    $tagsWithIDs[$tag->id] = $label;
+                    if(trim($label) !== ''){
+                        $tag = new Tags();
+                        $tag->label = $label;
+                        $tag->status = 'a';
+                        $tag->save();
+                        // már van ID-nk
+                        $tagsWithIDs[$tag->id] = $label;
+                    }
                 }
             }
             return $tagsWithIDs;
