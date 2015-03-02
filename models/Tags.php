@@ -334,4 +334,9 @@
             }
             return $tagsWithIDs;
         }
+
+        public static function getLabelByID($id){
+            $tag = self::findOne(['id' => $id]);
+            return S::get($tag, 'label');
+        }
     }
