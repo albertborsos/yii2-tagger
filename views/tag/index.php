@@ -99,48 +99,6 @@ use albertborsos\yii2tagger\components\DataProvider;
                     return \albertborsos\yii2lib\db\ActiveRecord::showLastModifiedInfo($model);
                 },
             ],
-            [
-                'class' => 'kartik\grid\ActionColumn',
-                'template' => '{view} {update} {delete}',
-                'urlCreator' => function ($action, $model, $key, $index) {
-                    return [$action, 'id' => $model->id];
-                },
-                //'dropdown' => true,
-                'width' => '120px',
-                'buttons' => [
-                    'view' => function ($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
-                            'title' => Yii::t('yii', 'View'),
-                            'data-pjax' => '0',
-                            'class' => 'btn btn-sm btn-default'
-                        ]);
-                    },
-                    'update' => function ($url, $model) {
-                        if (Yii::$app->user->can('editor')) {
-                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-                                'title' => Yii::t('yii', 'Update'),
-                                'data-pjax' => '0',
-                                'class' => 'btn btn-sm btn-default'
-                            ]);
-                        } else {
-                            return '';
-                        }
-                    },
-                    'delete' => function ($url, $model) {
-                        if (Yii::$app->user->can('editor')) {
-                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                                'title' => Yii::t('yii', 'Delete'),
-                                'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-                                'data-method' => 'post',
-                                'data-pjax' => '0',
-                                'class' => 'btn btn-sm btn-default'
-                            ]);
-                        } else {
-                            return '';
-                        }
-                    },
-                ],
-            ],
         ],
     ]); ?>
 
