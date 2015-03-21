@@ -19,8 +19,6 @@ use albertborsos\yii2tagger\components\DataProvider;
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-globe"></i> Cimkék</h3>',
             'type' => 'default',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Új Cimke', ['create'], ['class' => 'btn btn-success']),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Szűrések törlése', ['index'], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
         'floatHeader' => true,
@@ -76,18 +74,6 @@ use albertborsos\yii2tagger\components\DataProvider;
                     return $model->editable(ActiveRecord::EDITABLE_TYPE_TEXTINPUT, 'label');
                 },
             ],
-            [
-                'attribute' => 'status',
-                'hAlign' => 'center',
-                'vAlign' => 'middle',
-                'headerOptions' => ['class' => 'text-center'],
-                'format' => 'raw',
-                'value' => function ($model, $index, $widget) {
-                    return $model->editable(ActiveRecord::EDITABLE_TYPE_DROPDOWN, 'status', DataProvider::items('status'));
-                },
-                'filter' => DataProvider::items('status'),
-            ],
-
             [
                 'attribute' => 'updated_at',
                 //'header'      => 'Utolsó módosítás',
