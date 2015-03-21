@@ -73,7 +73,7 @@ use albertborsos\yii2tagger\components\DataProvider;
                 'headerOptions' => ['class' => 'text-center'],
                 'format' => 'raw',
                 'value' => function ($model, $index, $widget) {
-                    return $model['label'];
+                    return $model->editable(ActiveRecord::EDITABLE_TYPE_TEXTINPUT, 'label');
                 },
             ],
             [
