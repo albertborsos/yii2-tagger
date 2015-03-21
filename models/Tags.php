@@ -15,6 +15,7 @@
      * This is the model class for table "ext_tagger_tags".
      *
      * @property string $id
+     * @property integer $sort_order
      * @property string $label
      * @property integer $created_at
      * @property integer $created_user
@@ -46,7 +47,7 @@
                 [['label', 'status'], 'trim'],
                 [['label', 'status'], 'default'],
                 [['label', 'status'], 'required'],
-                [['created_at', 'created_user', 'updated_at', 'updated_user'], 'integer'],
+                [['sort_order', 'created_at', 'created_user', 'updated_at', 'updated_user'], 'integer'],
                 [['label'], 'string', 'max' => 160],
                 [['status'], 'string', 'max' => 1]
             ];
@@ -59,6 +60,7 @@
         {
             return [
                 'id'           => 'ID',
+                'sort_order'   => 'Sorrend',
                 'label'        => 'Cimke',
                 'created_at'   => 'Létrehozva',
                 'created_user' => 'Létrehozta',
