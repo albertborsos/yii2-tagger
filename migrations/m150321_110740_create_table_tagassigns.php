@@ -21,11 +21,12 @@ class m150321_110740_create_table_tagassigns extends Migration
                   KEY `tag_id` (`tag_id`),
                   CONSTRAINT `ext_tagger_assigns_ibfk_1` FOREIGN KEY (`tag_id`) REFERENCES `ext_tagger_tags` (`id`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        $this->execute($sql);
     }
 
     public function down()
     {
-        $this->dropTable('ext_tagger_tags');
+        $this->dropTable('ext_tagger_assigns');
     }
     
     /*
