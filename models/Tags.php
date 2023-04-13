@@ -284,16 +284,15 @@
             switch($returnType){
                 case 'object':
                     return $assigns;
-                    break;
                 case 'array':
-                    return $values = array_values($values);
-                    break;
+                    return array_values($values);
+                case 'select2': // for select2 4.0
+                    $values = array_values($values);
+                    return array_combine($values, $values);
                 case 'dropdownlist':
                     return $values;
-                    break;
                 case 'string':
                     return implode(',', $values);
-                    break;
                 case 'link':
                     $tags = null;
                     if(count($values) > 0){
@@ -303,7 +302,6 @@
                         }
                     }
                     return $tags;
-                    break;
                 case 'label':
                     $icon = Glyph::icon(Glyph::ICON_TAGS);
                     $tags = '';
@@ -311,7 +309,6 @@
                         $tags .= ' '.Html::tag('span', $icon.' '.$value, ['class' => 'label label-'.$labelType]);
                     }
                     return $tags;
-                    break;
             }
         }
 
